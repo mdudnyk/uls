@@ -11,8 +11,7 @@
 #include <grp.h>
 #include <dirent.h>
 #include <time.h>
-
-char **names_string;
+#include <sys/stat.h>
 
 typedef struct flags {
     char *all_flags;
@@ -35,6 +34,13 @@ typedef struct flags {
     bool one;
 }              flags_t;
 
+typedef struct start_data_list {
+    char **dirs;
+    char **files;
+    char **no_file_dir;
+}              start_t;
+
+
 typedef struct print_format {
     bool standart;           /* true - print output to terminal in lines when, no -l, -n, -o, -g, -1, or -m flags*/
     bool long_format;        /* true if -l, -n, -o, -g */
@@ -45,9 +51,9 @@ typedef struct print_format {
 
 void flags_init(flags_t *flag);
 void mem_free(flags_t *flag);
-void ls_input_parser(int argc, char **argv, flags_t *flag, format_t *format);
+void ls_input_parser(int argc, char **argv, flags_t *flag, format_t *format, start_t *start_data);
 void flag_detector(int count_flags, int argc, char **argv, flags_t *flag);
-void file_dir_detector(int count_flags, int argc, char **argv, format_t *format);
+void file_dir_detector(int count_flags, int argc, char **argv, format_t *format, start_t *start_data);
 
 void err_ill_option(char c, flags_t *flag);
 void format_init(format_t *format);
