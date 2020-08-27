@@ -7,7 +7,10 @@ int main(int argc, char **argv) {
 
     flags_init(flag);
     format_init(format);
-    ls_input_parser(argc, argv, flag, format, start_data);
+    input_parser(argc, argv, flag, format, start_data);
+    format_detector(format, flag, start_data);
+    data_collector(format, flag, start_data);
+
     if (format->standart && format->print_in_terminal) {
         //your function
     }

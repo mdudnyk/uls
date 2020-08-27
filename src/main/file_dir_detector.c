@@ -56,30 +56,31 @@ void file_dir_detector(int count_flags, int argc, char **argv, format_t *format,
         start_data->dirs[0] = ".";
         start_data->dirs[1] = NULL;
     }
+    //распечатка входящих/файлов директорий
+    // if (start_data->dirs != NULL) {
+    //     mx_printstr("\n                     dirs:  ");
+    //     for (int i = 0; start_data->dirs[i] != NULL; i++) {
+    //        mx_printstr(start_data->dirs[i]);
+    //         mx_printchar(' ');
+    //     }
+    //     mx_printchar('\n');
+    // }
+    // if (start_data->files != NULL) {
+    //     mx_printstr("                    files:  ");
+    //     for (int i = 0; start_data->files[i] != NULL; i++) {
+    //         mx_printstr(start_data->files[i]);
+    //         mx_printchar(' ');
+    //     }
+    //     mx_printchar('\n');
+    // }
+    // if (start_data->no_file_dir != NULL) {
+    //     mx_printstr("No such file or directory:  ");
+    //     for (int i = 0; start_data->no_file_dir[i] != NULL; i++) {
+    //         mx_printstr(start_data->no_file_dir[i]);
+    //         mx_printchar(' ');
+    //     }
+    //     mx_printchar('\n');
+    //     mx_printchar('\n');
+    // }
 
-    if (start_data->dirs != NULL) {
-        mx_printstr("\n                      dir:  ");
-        for (int i = 0; start_data->dirs[i] != NULL; i++) {
-           mx_printstr(start_data->dirs[i]);
-            mx_printchar(' ');
-        }
-        mx_printchar('\n');
-    }
-    if (start_data->files != NULL) {
-        mx_printstr("                    files:  ");
-        for (int i = 0; start_data->files[i] != NULL; i++) {
-            mx_printstr(start_data->files[i]);
-            mx_printchar(' ');
-        }
-        mx_printchar('\n');
-    }
-    if (start_data->no_file_dir != NULL) {
-        mx_printstr("No such file or directory:  ");
-        for (int i = 0; start_data->no_file_dir[i] != NULL; i++) {
-            mx_printstr(start_data->no_file_dir[i]);
-            mx_printchar(' ');
-        }
-        mx_printchar('\n');
-        mx_printchar('\n');
-    }
 }
