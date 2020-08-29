@@ -8,10 +8,14 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <limits.h>
-#include <grp.h>
 #include <dirent.h>
 #include <time.h>
 #include <sys/stat.h>
+#include <sys/xattr.h>
+#include <sys/acl.h>
+#include <grp.h>
+#include <uuid/uuid.h>
+#include <pwd.h>
 
 typedef struct flags {
     char *all_flags;
@@ -54,17 +58,16 @@ typedef struct print_format {
 
 typedef struct data_storage {
     char *name;
-    short namelen;
     long long blok;
     unsigned long long ind_num;
     long long size;
     long date_m;
     char type;
-    char rights[9];
-    char plus_or_at[1];
+    char *rights;
+    char plus_or_at;
     unsigned short link_num;
-    char user_id;
-    char group_id;
+    char *user_id;
+    char *group_id;
 }              data_t;
 
 typedef struct biggest_len {
@@ -83,6 +86,7 @@ void flag_detector(int count_flags, int argc, char **argv, flags_t *flag);
 void file_dir_detector(int count_flags, int argc, char **argv, format_t *format, start_t *start_data);
 void format_detector(format_t *format, flags_t *flag, start_t *start_data);
 void data_collector(format_t *format, flags_t *flag, start_t *start_data, data_t ****data);
+void get_data(data_t *data, flags_t *flag, format_t *format, char *dir_name);
 
 void err_ill_option(char c, flags_t *flag);
 void format_init(format_t *format);
