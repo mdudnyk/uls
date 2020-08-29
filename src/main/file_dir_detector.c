@@ -37,6 +37,9 @@ static char **arr_resize_fill(char* argument, char **arr) {
 void file_dir_detector(int count_flags, int argc, char **argv, format_t *format, start_t *start_data) {
     int i = count_flags;
     int j = 0;
+    int dirs_num = 0;
+    int files_num = 0;
+    int no_fd_num = 0;
 
     start_data->dirs = NULL;
     start_data->files = NULL;
@@ -45,9 +48,9 @@ void file_dir_detector(int count_flags, int argc, char **argv, format_t *format,
     if (count_flags < argc - 1) {
         for (i++ ; i < argc; i++, j++) {
             switch (type_detector(argv[i])) {
-                case 0: start_data->no_file_dir = arr_resize_fill(argv[i], start_data->no_file_dir); break;
-                case 1: start_data->dirs = arr_resize_fill(argv[i], start_data->dirs); break;
-                case 2: start_data->files = arr_resize_fill(argv[i], start_data->files); break;
+                case 0: no_fd_num++; start_data->no_file_dir = arr_resize_fill(argv[i], start_data->no_file_dir); break;
+                case 1: dirs_num++; start_data->dirs = arr_resize_fill(argv[i], start_data->dirs); break;
+                case 2: files_num++; start_data->files = arr_resize_fill(argv[i], start_data->files); break;
             }
         }
     }
@@ -55,7 +58,11 @@ void file_dir_detector(int count_flags, int argc, char **argv, format_t *format,
         start_data->dirs = malloc(sizeof(char*) * (2));
         start_data->dirs[0] = ".";
         start_data->dirs[1] = NULL;
+        dirs_num = 1;
     }
+    start_data->dirs_num = dirs_num;
+    start_data->files_num = files_num;
+    start_data->no_fd_num = no_fd_num;
     //распечатка входящих/файлов директорий
     // if (start_data->dirs != NULL) {
     //     mx_printstr("\n                     dirs:  ");
@@ -82,5 +89,4 @@ void file_dir_detector(int count_flags, int argc, char **argv, format_t *format,
     //     mx_printchar('\n');
     //     mx_printchar('\n');
     // }
-
 }

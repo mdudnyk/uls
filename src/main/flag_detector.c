@@ -2,11 +2,11 @@
 
 static void flag_activator(flags_t *flag, char fl) {
     switch (fl) {
-        case 'A': if (flag->a != true) flag->A = true; break;
+        case 'A': if (flag->a != true && flag->a != true) flag->A = true; break;
         case 'F': flag->F = true; break;
         case 'S': flag->S = true; break;
-        case 'a': flag->a = true; flag->A = false; break;
-        case 'd': flag->d = true; break;
+        case 'a': if (flag->d != true) {flag->a = true; flag->A = false;} break;
+        case 'd': flag->d = true; flag->a = false; flag->A = false; break;
         case 'g': flag->g = true; flag->m = false; flag->one = false; break;
         case 'h': flag->h = true; break;
         case 'i': flag->i = true; break;

@@ -35,9 +35,12 @@ typedef struct flags {
 }              flags_t;
 
 typedef struct start_data_list {
-    char **dirs;
-    char **files;
-    char **no_file_dir;
+    char **dirs;             /* NULL-terminated 2d arr with names of DIRECTORIES from output */
+    int dirs_num;             /* number of dirs in dirs array */
+    char **files;            /* NULL-terminated 2d arr with names of FILES from output */
+    int files_num;           /* number of files in files array */ 
+    char **no_file_dir;      /* NULL-terminated 2d arr with names of DIR/FILES that don't exist */
+    int no_fd_num;          /* number of non files of dirs in no_file_dir array */ 
 }              start_t;
 
 
@@ -49,11 +52,37 @@ typedef struct print_format {
     bool print_in_terminal;  /* true - no "| cat" or other options while start */
 }              format_t;
 
+typedef struct data_storage {
+    char *name;
+    short namelen;
+    long long blok;
+    unsigned long long ind_num;
+    long long size;
+    long date_m;
+    char type;
+    char rights[9];
+    char plus_or_at[1];
+    unsigned short link_num;
+    char user_id;
+    char group_id;
+}              data_t;
+
+typedef struct biggest_len {
+    short b_namelen;
+    short b_blok;
+    short b_ind_num;
+    short b_size;
+    short b_user_id;
+    short b_group_id;
+}              biggest_t;
+
 void flags_init(flags_t *flag);
 void mem_free(flags_t *flag);
-void ls_input_parser(int argc, char **argv, flags_t *flag, format_t *format, start_t *start_data);
+void input_parser(int argc, char **argv, flags_t *flag, format_t *format, start_t *start_data);
 void flag_detector(int count_flags, int argc, char **argv, flags_t *flag);
 void file_dir_detector(int count_flags, int argc, char **argv, format_t *format, start_t *start_data);
+void format_detector(format_t *format, flags_t *flag, start_t *start_data);
+void data_collector(format_t *format, flags_t *flag, start_t *start_data, data_t ****data);
 
 void err_ill_option(char c, flags_t *flag);
 void format_init(format_t *format);
