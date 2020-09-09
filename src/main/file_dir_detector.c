@@ -3,7 +3,7 @@
 static int type_detector(char *argument) {
     struct stat sb;
 
-    if (stat(argument, &sb) == -1)
+    if (lstat(argument, &sb) == -1)
         return 0;
     if ((sb.st_mode & S_IFMT) == S_IFDIR)
         return 1;
@@ -44,16 +44,13 @@ void file_dir_detector(int count_flags, int argc, char **argv, format_t *format,
     start_data->dirs = NULL;
     start_data->files = NULL;
     start_data->no_file_dir = NULL;
-
-    if (count_flags < argc - 1) {
-        for (i++ ; i < argc; i++, j++) {
+    if (count_flags < argc - 1)
+        for (i++ ; i < argc; i++, j++)
             switch (type_detector(argv[i])) {
                 case 0: no_fd_num++; start_data->no_file_dir = arr_resize_fill(argv[i], start_data->no_file_dir); break;
                 case 1: dirs_num++; start_data->dirs = arr_resize_fill(argv[i], start_data->dirs); break;
                 case 2: files_num++; start_data->files = arr_resize_fill(argv[i], start_data->files); break;
             }
-        }
-    }
     else {
         start_data->dirs = malloc(sizeof(char*) * (2));
         start_data->dirs[0] = ".";
@@ -63,30 +60,4 @@ void file_dir_detector(int count_flags, int argc, char **argv, format_t *format,
     start_data->dirs_num = dirs_num;
     start_data->files_num = files_num;
     start_data->no_fd_num = no_fd_num;
-    //распечатка входящих/файлов директорий
-    // if (start_data->dirs != NULL) {
-    //     mx_printstr("\n                     dirs:  ");
-    //     for (int i = 0; start_data->dirs[i] != NULL; i++) {
-    //        mx_printstr(start_data->dirs[i]);
-    //         mx_printchar(' ');
-    //     }
-    //     mx_printchar('\n');
-    // }
-    // if (start_data->files != NULL) {
-    //     mx_printstr("                    files:  ");
-    //     for (int i = 0; start_data->files[i] != NULL; i++) {
-    //         mx_printstr(start_data->files[i]);
-    //         mx_printchar(' ');
-    //     }
-    //     mx_printchar('\n');
-    // }
-    // if (start_data->no_file_dir != NULL) {
-    //     mx_printstr("No such file or directory:  ");
-    //     for (int i = 0; start_data->no_file_dir[i] != NULL; i++) {
-    //         mx_printstr(start_data->no_file_dir[i]);
-    //         mx_printchar(' ');
-    //     }
-    //     mx_printchar('\n');
-    //     mx_printchar('\n');
-    // }
 }

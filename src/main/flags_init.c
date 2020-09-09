@@ -15,7 +15,6 @@ void flags_init(flags_t *flag) {
     flag->n = false;
     flag->m = false;
     flag->o = false;
-    flag->p = false;
     flag->r = false;
     flag->s = false;
     flag->t = false;

@@ -4,7 +4,7 @@ static void flag_activator(flags_t *flag, char fl) {
     switch (fl) {
         case 'A': if (flag->a != true && flag->a != true) flag->A = true; break;
         case 'F': flag->F = true; break;
-        case 'S': flag->S = true; break;
+        case 'S': flag->S = true; flag->t = false; break;
         case 'a': if (flag->d != true) {flag->a = true; flag->A = false;} break;
         case 'd': flag->d = true; flag->a = false; flag->A = false; break;
         case 'g': flag->g = true; flag->m = false; flag->one = false; break;
@@ -14,10 +14,9 @@ static void flag_activator(flags_t *flag, char fl) {
         case 'n': flag->n = true; flag->m = false; flag->one = false; break;
         case 'm': flag->m = true; flag->l = false; flag->g = false; flag->o = false; flag->n = false; flag->one = false; break;
         case 'o': flag->o = true; flag->m = false; flag->one = false; break;
-        case 'p': flag->p = true; break;
         case 'r': flag->r = true; break;
         case 's': flag->s = true; break;
-        case 't': flag->t = true; break;
+        case 't': if (flag->S != true) flag->t = true; break;
         case '1': flag->one = true; flag->l = false; flag->g = false; flag->o = false; flag->n = false; flag->m = false; break;
     }
 }
