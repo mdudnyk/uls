@@ -17,6 +17,7 @@
 #include <uuid/uuid.h>
 #include <pwd.h>
 #include <errno.h>
+#include <sys/ioctl.h>
 
 typedef struct flags {
     char *all_flags;
@@ -93,6 +94,7 @@ typedef struct largest_len {    /*  structure that keeps largest length of every
     short sizelen;
     short useridlen;
     short groupidlen;
+    short quantity;
 }              largest_t;
 
 void flags_init(flags_t *flag);
@@ -113,6 +115,10 @@ void print_no_fd(start_t *start_data);
 void print_long_string(data_t **data, flags_t *flag, largest_t *largest);
 void print_with_commas_format(data_t ****data, flags_t *flag, largest_t ***largest, start_t *start_data);
 void print_with_coma_string(data_t **data, flags_t *flag, largest_t *largest);
+void print_one_per_line_format(data_t ****data, flags_t *flag, largest_t ***largest, start_t *start_data);
+void print_one_per_line_string(data_t **data, flags_t *flag, largest_t *largest);
+void print_standart_format(data_t ****data, flags_t *flag, largest_t ***largest, start_t *start_data);
+void print_standart_string(data_t **data, flags_t *flag, largest_t *largest, int console_size, int col_width);
 
 char *size_to_readable(long long size);
 void err_ill_option(char c, flags_t *flag);
