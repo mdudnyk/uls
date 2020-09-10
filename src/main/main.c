@@ -20,7 +20,14 @@ int main(int argc, char **argv) {
         print_long_format(data, flag, largest, start_data);
     if (format->with_commas)
         print_with_commas_format(data, flag, largest, start_data);
-
+    if (format->one_per_line)
+        print_one_per_line_format(data, flag, largest, start_data);
+    if (format->standart) {
+        if  (format->print_in_terminal)
+            print_standart_format(data, flag, largest, start_data);
+        else
+            print_one_per_line_format(data, flag, largest, start_data);
+    }
     if (start_data->no_fd_num > 0)
         exit(1);
     //mem_free(data, start_data);

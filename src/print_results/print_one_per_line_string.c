@@ -29,7 +29,7 @@ static void print_processor(short len, char *data_field, short spaces_after, boo
     free(field);
 }
 
-void print_with_coma_string(data_t **data, flags_t *flag, largest_t *largest) {
+void print_one_per_line_string(data_t **data, flags_t *flag, largest_t *largest) {
     for (int i = 0; data[i] != NULL; i++) {
         if (flag->i)
             print_processor(largest->indnumlen, data[i]->ind_num_ch, 1, true);
@@ -43,6 +43,6 @@ void print_with_coma_string(data_t **data, flags_t *flag, largest_t *largest) {
                 case '-': if (data[i]->rights[2] == 'x') mx_printchar('*'); break;
             }
         if (data[i + 1] != NULL)
-            mx_printstr(", ");
+            mx_printchar('\n');
     }
 }

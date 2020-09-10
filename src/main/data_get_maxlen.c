@@ -10,6 +10,7 @@ static void biggest_finder(largest_t *largest, data_t *data) {
     short linklen = mx_strlen(data->link_num_ch);
     short indlen = mx_strlen(data->ind_num_ch);
 
+    largest->quantity++;
     if (namelen > largest->namelen)
         largest->namelen = namelen;
     if (groupidlen > largest->groupidlen)

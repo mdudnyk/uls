@@ -8,7 +8,8 @@ static void starting_data(largest_t *largest) {
     largest->useridlen = 0;
     largest->indnumlen = 0;
     largest->sizelen = 0;
-    largest->tot_block = 0;   
+    largest->tot_block = 0;
+    largest->quantity = 0;
 }
 
 void largest_init(largest_t ***largest, start_t *start_data) {

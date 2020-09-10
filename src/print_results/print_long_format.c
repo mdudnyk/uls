@@ -32,8 +32,10 @@ void print_long_format(data_t ****data, flags_t *flag, largest_t ***largest, sta
                  mx_printchar('\n');  
             if (print_dir_name == true || start_data->dirs_num > 1)
                 print_d_name(start_data->dirs[i]);
-            print_tot_blocks(largest[1][i]->tot_block);
-            print_long_string(data[1][i], flag, largest[1][i]);
+            if (largest[1][i]->quantity > 0) {
+                print_tot_blocks(largest[1][i]->tot_block);
+                print_long_string(data[1][i], flag, largest[1][i]);
+            }
             need_new_line = true;
         }
     }

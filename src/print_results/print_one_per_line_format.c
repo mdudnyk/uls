@@ -5,7 +5,13 @@ static void print_d_name(char *dir) {
     mx_printstr(":\n");
 }
 
-void print_with_commas_format(data_t ****data, flags_t *flag, largest_t ***largest, start_t *start_data) {
+static void print_tot_blocks(int tot_bl) {
+    mx_printstr("total ");
+    mx_printint(tot_bl);
+    mx_printchar('\n');
+}
+
+void print_one_per_line_format(data_t ****data, flags_t *flag, largest_t ***largest, start_t *start_data) {
     bool print_dir_name = false;
     bool need_new_line = false;
 
@@ -16,14 +22,9 @@ void print_with_commas_format(data_t ****data, flags_t *flag, largest_t ***large
     if (start_data->files_num > 0) {
         print_dir_name = true;
         for (int i = 0; i < start_data->files_num; i++) {
-            print_with_coma_string(data[0][i], flag, largest[0][0]);
-            if (i + 1 != start_data->files_num)
-                mx_printstr(", ");
-            else
-                if (start_data->dirs_num > 0)
-                    mx_printstr(", ");
+            print_one_per_line_string(data[0][i], flag, largest[0][0]);
+            mx_printchar('\n');
         }
-        mx_printchar('\n');
     }
     if (start_data->dirs_num > 0) {
         if (print_dir_name == true)
@@ -34,7 +35,9 @@ void print_with_commas_format(data_t ****data, flags_t *flag, largest_t ***large
             if (print_dir_name == true || start_data->dirs_num > 1)
                 print_d_name(start_data->dirs[i]);
             if (largest[1][i]->quantity > 0) {
-                print_with_coma_string(data[1][i], flag, largest[1][i]);
+                if (flag->s)
+                    print_tot_blocks(largest[1][i]->tot_block); 
+                print_one_per_line_string(data[1][i], flag, largest[1][i]);
                 mx_printchar('\n');
             }
             need_new_line = true;
