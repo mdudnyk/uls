@@ -9,10 +9,10 @@ void get_data(data_t *data, flags_t *flag, format_t *format, char *dir_name) {
     temp = NULL;
     lstat(string, &sb);
     data->ind_num = sb.st_ino;
-    data->ind_num_ch = mx_itoa(data->ind_num);
+    data->ind_num_ch = mx_ulltoa(data->ind_num);
     data->size = sb.st_size;
     data->blok = sb.st_blocks;
-    data->block_ch = mx_itoa(data->blok);
+    data->block_ch = mx_ulltoa(data->blok);
     // if (format->long_format) { 
         switch (sb.st_mode & S_IFMT) {
             case S_IFBLK:  data->type = 'b'; format->human_readable = false; break;
@@ -98,21 +98,21 @@ void get_data(data_t *data, flags_t *flag, format_t *format, char *dir_name) {
         if (format->human_readable) 
             data->size_ch = size_to_readable(data->size);
         else 
-            data->size_ch = mx_itoa(data->size);
+            data->size_ch = mx_ulltoa(data->size);
 
         data->date_m = sb.st_mtime;
-        char *time = ctime(&sb.st_mtime);
+        char *time_m = ctime(&sb.st_mtime);
         data->date = mx_strnew(12);
         int i = 4;
         int j = 0;
         for ( ; j < 7; )
-            data->date[j++] = time[i++];
-        if (time[22] == '2')
+            data->date[j++] = time_m[i++];
+        if ((time(NULL) - data->date_m) < 15552000)
             for ( ; j < 12; )
-                data->date[j++] = time[i++];
+                data->date[j++] = time_m[i++];
         else 
             for (i = 19 ; j < 12; )
-                data->date[j++] = time[i++];
+                data->date[j++] = time_m[i++];
 
         data->link = NULL;
         if (data->type == 'l') {

@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
     if (format->long_format)
         print_long_format(data, flag, largest, start_data);
     if (format->with_commas)
-        print_with_commas_format(data, flag, largest, start_data);
+        print_with_commas_format(data, flag, largest, start_data, format);
     if (format->one_per_line)
         print_one_per_line_format(data, flag, largest, start_data);
     if (format->standart) {

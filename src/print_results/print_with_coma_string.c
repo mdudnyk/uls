@@ -1,5 +1,16 @@
 #include "uls.h"
 
+static int field_len(int len_counter, largest_t *largest, int name_len, flags_t *flag) {
+    if (flag->i)
+        len_counter += largest->indnumlen + 1;
+    if (flag->s)
+        len_counter += largest->bloknumlen + 1;
+    if (flag->F)
+        len_counter++; 
+    len_counter += name_len + 2;
+    return len_counter;
+}
+
 static char *field_maker(int size) {
     char *str = mx_strnew(size);
     mx_memset(str, ' ', size);
@@ -29,8 +40,16 @@ static void print_processor(short len, char *data_field, short spaces_after, boo
     free(field);
 }
 
-void print_with_coma_string(data_t **data, flags_t *flag, largest_t *largest) {
+void print_with_coma_string(data_t **data, flags_t *flag, largest_t *largest, int console_size) {
+    int len_counter = 0;
+
     for (int i = 0; data[i] != NULL; i++) {
+        len_counter = field_len(len_counter, largest, mx_strlen(data[i]->name), flag);
+        if ((len_counter + 1) > console_size) {
+            mx_printchar('\n');
+            len_counter = 0;
+            len_counter = field_len(len_counter, largest, mx_strlen(data[i]->name), flag);
+        }
         if (flag->i)
             print_processor(largest->indnumlen, data[i]->ind_num_ch, 1, true);
         if (flag->s)

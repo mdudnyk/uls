@@ -16,7 +16,6 @@ void print_one_per_line_format(data_t ****data, flags_t *flag, largest_t ***larg
     bool need_new_line = false;
 
     if (start_data->no_fd_num > 0) {
-        print_dir_name = true;
         print_no_fd(start_data);
     }
     if (start_data->files_num > 0) {

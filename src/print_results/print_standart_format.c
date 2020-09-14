@@ -36,7 +36,6 @@ void print_standart_format(data_t ****data, flags_t *flag, largest_t ***largest,
     int col_width = 0;
     bool print_dir_name = false;
     bool need_new_line = false;
-    //printf("size - %d\n", consol_size);
 
     if (start_data->no_fd_num > 0) {
         print_dir_name = true;
