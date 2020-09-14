@@ -72,6 +72,7 @@ SRC		=	mx_printchar.c \
 			mx_isdigit.c \
 			mx_atoi.c \
 			mx_isletter.c \
+			mx_ulltoa.c \
 
 SRCS	=	$(addprefix $(SRCD)/, $(SRC))
 OBJS	=	$(addprefix $(OBJD)/, $(SRC:%.c=%.o))
