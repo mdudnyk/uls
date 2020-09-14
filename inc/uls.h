@@ -113,8 +113,8 @@ void data_get_maxlen(largest_t ***largest, data_t ****data, start_t *start_data,
 void print_long_format(data_t ****data, flags_t *flag, largest_t ***largest, start_t *start_data);
 void print_no_fd(start_t *start_data);
 void print_long_string(data_t **data, flags_t *flag, largest_t *largest);
-void print_with_commas_format(data_t ****data, flags_t *flag, largest_t ***largest, start_t *start_data);
-void print_with_coma_string(data_t **data, flags_t *flag, largest_t *largest);
+void print_with_commas_format(data_t ****data, flags_t *flag, largest_t ***largest, start_t *start_data, format_t *format);
+void print_with_coma_string(data_t **data, flags_t *flag, largest_t *largest, int console_size);
 void print_one_per_line_format(data_t ****data, flags_t *flag, largest_t ***largest, start_t *start_data);
 void print_one_per_line_string(data_t **data, flags_t *flag, largest_t *largest);
 void print_standart_format(data_t ****data, flags_t *flag, largest_t ***largest, start_t *start_data);
