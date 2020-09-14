@@ -82,6 +82,7 @@ void mx_printerr(const char *s);
 bool mx_isdigit(char c);
 int mx_atoi(const char *str);
 bool mx_isletter(char c);
+char *mx_ulltoa(unsigned long long number);
 
 
 #endif
