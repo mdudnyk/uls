@@ -36,19 +36,26 @@ void print_standart_format(data_t ****data, flags_t *flag, largest_t ***largest,
     int col_width = 0;
     bool print_dir_name = false;
     bool need_new_line = false;
+    int signal = 0;
 
     if (start_data->no_fd_num > 0) {
-        print_dir_name = true;
         print_no_fd(start_data);
     }
+
     if (start_data->files_num > 0) {
         print_dir_name = true;
         col_width = find_col_width(flag, largest[0][0]);
-        for (int i = 0; i < start_data->files_num; i++) {
-            print_standart_string(data[0][i], flag, largest[0][0], consol_size, col_width);
-        }
+
+                int l = 0;
+                int p = 0;
+                for(l = 0; data[0][l] != NULL; l++) { }
+            print_standart_string_file(data[0], flag, largest[0][0], consol_size, col_width, l);
+        signal++;
     }
+
     if (start_data->dirs_num > 0) {
+        //if(signal > 0)
+            //mx_printstr("\n");
         if (print_dir_name == true)
             need_new_line = true;
         for (int i = 0; i < start_data->dirs_num; i++) {
@@ -59,7 +66,7 @@ void print_standart_format(data_t ****data, flags_t *flag, largest_t ***largest,
                 print_d_name(start_data->dirs[i]);
             if (largest[1][i]->quantity > 0) {
                 if (flag->s)
-                    print_tot_blocks(largest[1][i]->tot_block); 
+                print_tot_blocks(largest[1][i]->tot_block);
                 print_standart_string(data[1][i], flag, largest[1][i], consol_size, col_width);
                 mx_printchar('\n');
             }

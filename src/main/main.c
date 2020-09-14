@@ -30,6 +30,5 @@ int main(int argc, char **argv) {
     }
     if (start_data->no_fd_num > 0)
         exit(1);
-    //mem_free(data, start_data);
     // system("leaks uls");
 }

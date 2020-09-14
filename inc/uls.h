@@ -119,6 +119,7 @@ void print_one_per_line_format(data_t ****data, flags_t *flag, largest_t ***larg
 void print_one_per_line_string(data_t **data, flags_t *flag, largest_t *largest);
 void print_standart_format(data_t ****data, flags_t *flag, largest_t ***largest, start_t *start_data);
 void print_standart_string(data_t **data, flags_t *flag, largest_t *largest, int console_size, int col_width);
+void print_standart_string_file(data_t ***data, flags_t *flag, largest_t *largest, int console_size, int col_width, int l);
 
 char *size_to_readable(long long size);
 void err_ill_option(char c, flags_t *flag);

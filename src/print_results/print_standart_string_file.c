@@ -13,30 +13,32 @@ static char *fill_string(char *string, int string_width, short field_len, char *
     return string;
 }
 
-void print_standart_string(data_t **data, flags_t *flag, largest_t *largest, int console_size, int col_width) {
+void print_standart_string_file(data_t ***data, flags_t *flag, largest_t *largest, int console_size, int col_width, int l) {
     char *string = mx_strnew(col_width);
     int j = 0;
-    int kount_files = 0;
+    int kount_files = l;
     int signal = 0;
     int max_long = 0;
-    for (kount_files = 0; data[kount_files] != NULL; kount_files++) { }
+    //for (kount_files = 0; data[kount_files] != NULL; kount_files++) { }
+
+    //printf("1234567890");
+
+    //printf("%s\n", *data[0][0]);
+   // mx_printstr(data[0][1]);
 
     for (int i = 0; data[i] != NULL; i++) {
         mx_memset(string, ' ', col_width);
         if (flag->i) {
-            string = fill_string(string, col_width, largest->indnumlen, data[i]->ind_num_ch, true);
+            string = fill_string(string, col_width, largest->indnumlen, data[i][0]->ind_num_ch, true);
         }
         if (flag->s) {
-            string = fill_string(string, col_width, largest->bloknumlen, data[i]->block_ch, true);
+            string = fill_string(string, col_width, largest->bloknumlen, data[i][0]->block_ch, true);
         }
-        string = fill_string(string, col_width, largest->namelen, data[i]->name, false);
-
+        string = fill_string(string, col_width, largest->namelen, data[i][0]->name, false);
         if(signal == 0)
             max_long = mx_strlen(string);
-
         if(max_long < mx_strlen(string))
             max_long = mx_strlen(string);
-
         signal++;
     }
 
@@ -44,7 +46,7 @@ void print_standart_string(data_t **data, flags_t *flag, largest_t *largest, int
         max_long++;
 
     int length_of_all_lines = 0;
-    length_of_all_lines = ((max_long * kount_files) + kount_files); //моя длина всех строк сумарно
+    length_of_all_lines = ((max_long * kount_files)); //моя длина всех строк сумарно
 
 // printf("kount_files   %d\n", kount_files);
 //     printf("length_of_all_lines   %d\n", length_of_all_lines);
@@ -55,24 +57,23 @@ void print_standart_string(data_t **data, flags_t *flag, largest_t *largest, int
             mx_memset(string, ' ', col_width);
         
             if (flag->i) {
-                string = fill_string(string, col_width, largest->indnumlen, data[i]->ind_num_ch, true);
+                string = fill_string(string, col_width, largest->indnumlen, data[i][0]->ind_num_ch, true);
             }
 
             if (flag->s) {
-                string = fill_string(string, col_width, largest->bloknumlen, data[i]->block_ch, true);
+                string = fill_string(string, col_width, largest->bloknumlen, data[i][0]->block_ch, true);
             }
 
-            string = fill_string(string, col_width, largest->namelen, data[i]->name, false);
+            string = fill_string(string, col_width, largest->namelen, data[i][0]->name, false);
         
             if (flag->F) {
                 for (j = col_width - 1; string[j - 1] == ' ' && i > 0; j--) {}
-                switch (data[i]->type) {
+                switch (data[i][0]->type) {
                     case 'd': string[j] = '/'; break;
                     case 'l': string[j] = '@'; break;
-                    case '-': if (data[i]->rights[2] == 'x') string[j] = '*'; break;
+                    case '-': if (data[i][0]->rights[2] == 'x') string[j] = '*'; break;
                 }
             }
-
 
 
 int num_space = 0;
@@ -113,17 +114,16 @@ if (num_space > 8) {
         string[i] = '\0';
 }
 
-
-
             mx_printstr(string);
                         //mx_printstr("\n12345678\n");
         }
     }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if (length_of_all_lines > console_size) {
-            if(max_long > console_size)
+
+        if(max_long > console_size)
             console_size = max_long;
-        
+
         int max = console_size / max_long;
         int count_files = kount_files;
 
@@ -149,26 +149,25 @@ if (num_space > 8) {
             mx_memset(string, ' ', col_width);
             
             if (flag->i) {
-                string = fill_string(string, col_width, largest->indnumlen, data[i]->ind_num_ch, true);
+                string = fill_string(string, col_width, largest->indnumlen, data[i][0]->ind_num_ch, true);
             }
 
             if (flag->s) {
-                string = fill_string(string, col_width, largest->bloknumlen, data[i]->block_ch, true);
+                string = fill_string(string, col_width, largest->bloknumlen, data[i][0]->block_ch, true);
             }
 
-            string = fill_string(string, col_width, largest->namelen, data[i]->name, false);
+            string = fill_string(string, col_width, largest->namelen, data[i][0]->name, false);
             
             if (flag->F) {
                 for (j = col_width - 1; string[j - 1] == ' ' && i > 0; j--) {}
                 
-                switch (data[i]->type) {
+                switch (data[i][0]->type) {
                 case 'd': string[j] = '/'; break;
                 case 'l': string[j] = '@'; break;
-                case '-': if (data[i]->rights[2] == 'x') string[j] = '*'; break;
+                case '-': if (data[i][0]->rights[2] == 'x') string[j] = '*'; break;
                 }
             }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-//замена пробелов на табы
+
 int num_space = 0;
 int space = mx_strlen(string) - 1;
 while(string[space] == ' ') {
@@ -206,8 +205,7 @@ if (num_space > 8) {
     for(int i = space; string[i] != '\0'; i++)
         string[i] = '\0';
 }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            
             mx_printstr(string);
             i += del;
         }
@@ -215,9 +213,10 @@ if (num_space > 8) {
     ii++;
     
     if(shag > 0)
-       mx_printstr("\n");
+        mx_printstr("\n");
    
         }
     }
+    mx_printstr("\n");
     free(string);
 }

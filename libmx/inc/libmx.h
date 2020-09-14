@@ -84,5 +84,4 @@ int mx_atoi(const char *str);
 bool mx_isletter(char c);
 char *mx_ulltoa(unsigned long long number);
 
-
 #endif
